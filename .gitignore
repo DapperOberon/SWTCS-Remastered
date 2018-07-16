@@ -35,3 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+SWCW Remastered/Assets/Library/Scenes/samplescene.unity
+SWCW Remastered/Assets/Library/Scripts/SimpleCameraController.cs
