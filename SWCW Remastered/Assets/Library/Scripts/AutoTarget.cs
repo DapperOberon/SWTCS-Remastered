@@ -62,7 +62,7 @@ public class AutoTarget : MonoBehaviour {
 		{
 			Vector3 diff = obj.transform.position - position;
 			float curDistance = diff.sqrMagnitude;
-			if (curDistance < distance)
+			if (curDistance < distance && IsInView(this.gameObject, obj))
 			{
 				closestTarget = obj;
 				distance = curDistance;

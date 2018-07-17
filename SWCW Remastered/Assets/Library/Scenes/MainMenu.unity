@@ -449,7 +449,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 512465687}
+      - m_Target: {fileID: 114698318516193404, guid: ad0a15e95b7495341bd86f2623c73918,
+          type: 2}
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -1724,12 +1725,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 421921831}
   m_CullTransparentMesh: 0
---- !u!114 &512465687 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114698318516193404, guid: ad0a15e95b7495341bd86f2623c73918,
-    type: 2}
-  m_PrefabInternal: {fileID: 555924250}
-  m_Script: {fileID: 11500000, guid: 9d2d8a95ec3a1db44a7335cf967c671f, type: 3}
 --- !u!1001 &555924250
 Prefab:
   m_ObjectHideFlags: 0
