@@ -364,7 +364,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "SWCS Remastered, is, in no way, affiliated or associated with LucasArts,
+  m_text: "SWTCW Remastered, is, in no way, affiliated or associated with LucasArts,
     Lucasfilm or Disney, and is an unofficial fan-game created by a fan, for fans,
     for personal pleasure and not for any financial gain. All images, videos, sounds,
     etc. regarding the Star Wars Saga, herein, are \xA9 Lucasfilm. All other images,
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 0}
-    characterCount: 444
+    characterCount: 445
     spriteCount: 0
     spaceCount: 69
     wordCount: 68
