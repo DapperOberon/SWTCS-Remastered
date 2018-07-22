@@ -16,6 +16,7 @@ public class AutoTarget : MonoBehaviour {
 
 	private List<GameObject> targets = new List<GameObject>();
 	private GameObject closestTarget = null;
+
 	private GameObject selectedObject;
 	private Camera cam;
 	private int layerMask;
@@ -28,7 +29,6 @@ public class AutoTarget : MonoBehaviour {
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Target"))
 		{
 			targets.Add(obj);
-			
 		}
 	}
 	
@@ -78,15 +78,15 @@ public class AutoTarget : MonoBehaviour {
 		//Is in front
 		if (pointOnScreen.z < 0)
 		{
-			Debug.Log("Behind: " + toCheck.name);
+			//Debug.Log("Behind: " + toCheck.name);
 			return false;
 		}
 
 		//Is in FOV
-		if ((pointOnScreen.x < (Screen.width / 3)) || (pointOnScreen.x > (Screen.width / 3) * 2) ||
+		if ((pointOnScreen.x < (Screen.width / 5) * 2) || (pointOnScreen.x > (Screen.width / 5) * 3) ||
 				(pointOnScreen.y < (Screen.height / 3)) || (pointOnScreen.y > Screen.height))
 		{
-			Debug.Log("OutOfBounds: " + toCheck.name);
+			//Debug.Log("OutOfBounds: " + toCheck.name);
 			return false;
 		}
 
@@ -104,7 +104,7 @@ public class AutoTarget : MonoBehaviour {
 				Debug.DrawLine(cam.transform.position, toCheck.GetComponentInChildren<Renderer>().bounds.center, Color.red);
 				Debug.LogError(toCheck.name + " occluded by " + hit.transform.name);
 				*/
-				Debug.Log(toCheck.name + " occluded by " + hit.transform.name);
+				//Debug.Log(toCheck.name + " occluded by " + hit.transform.name);
 				return false;
 			}
 		}
@@ -117,14 +117,19 @@ public class AutoTarget : MonoBehaviour {
 		float curDistance = diff.sqrMagnitude;
 		if (curDistance < maxTargetDist * maxTargetDist && IsInView(this.gameObject, obj)) // have to muliply by itselft because curDistance is the is a sqrMagnitude
 		{
-			print("Within target distance");
+			//print("Within target distance");
 			selectedObject = obj;
 		}
 		else
 		{
-			print("Either not within range or not visible.");
+			//print("Either not within range or not visible.");
 			ClearSelection();
 		}
+	}
+
+	public GameObject GetSelectedObj()
+	{
+		return selectedObject;
 	}
 
 	private void ClearSelection()

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -9,6 +11,8 @@ public class MainMenu : MonoBehaviour {
 	public GameObject mainMenu;
 	public GameObject optionsMenu;
 	public GameObject credits;
+	public GameObject loadLevelScreen;
+	public Slider levelProgressSldr;
 	private bool bCreditsRolling;
 
 	private void OnGUI()
@@ -44,5 +48,25 @@ public class MainMenu : MonoBehaviour {
 		credits.SetActive(false);
 		optionsMenu.SetActive(true);
 		bCreditsRolling = false;
+	}
+
+	public void LoadCampaign()
+	{
+		StartCoroutine(LoadNextLevelAsync());
+	}
+
+	IEnumerator LoadNextLevelAsync()
+	{
+		AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+
+		loadLevelScreen.SetActive(true);
+
+		while (!operation.isDone)
+		{
+			float progress = Mathf.Clamp01(operation.progress / 0.9f);
+			levelProgressSldr.value = progress;
+			Debug.Log(progress);
+			yield return null;
+		}
 	}
 }
