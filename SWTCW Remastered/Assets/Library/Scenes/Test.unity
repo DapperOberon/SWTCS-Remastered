@@ -312,21 +312,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114491227282746804, guid: 312c0489b16536540a4abcf6f327377f,
-        type: 2}
-      propertyPath: ammoParent
-      value: 
-      objectReference: {fileID: 1029982172}
-    - target: {fileID: 114170735313989858, guid: 312c0489b16536540a4abcf6f327377f,
-        type: 2}
-      propertyPath: reticle
-      value: 
-      objectReference: {fileID: 1436468475}
     - target: {fileID: 114972441545359596, guid: 312c0489b16536540a4abcf6f327377f,
         type: 2}
       propertyPath: boostBar
       value: 
       objectReference: {fileID: 1796671497}
+    - target: {fileID: 114170735313989858, guid: 312c0489b16536540a4abcf6f327377f,
+        type: 2}
+      propertyPath: reticle
+      value: 
+      objectReference: {fileID: 1436468475}
+    - target: {fileID: 114491227282746804, guid: 312c0489b16536540a4abcf6f327377f,
+        type: 2}
+      propertyPath: ammoParent
+      value: 
+      objectReference: {fileID: 1029982172}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 312c0489b16536540a4abcf6f327377f, type: 2}
   m_IsPrefabAsset: 0
