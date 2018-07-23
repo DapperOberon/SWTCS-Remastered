@@ -14,7 +14,13 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 7d3b0b42675ee8e42aa6ca94be6706a4
+    name: MusicVolume
+  - guid: 382ecaf3816af5944a996c6fde5b4467
+    name: SFXVolume
+  - guid: fb1f54c4283b5394e84768625ea427e0
+    name: SpeechVolume
   m_AudioMixerGroupViews:
   - guids:
     - 76b348aaa9750a24195f9704b68e8647
@@ -65,7 +71,23 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 5b42d80ee2000ac44836cddf8ea51895
-  m_FloatValues: {}
+  m_FloatValues:
+    8eb1c2e0428e2bc46ac6518bba260959: -4381
+    7d3b0b42675ee8e42aa6ca94be6706a4: 0.13552584
+    a19014a35142e014eb9b95492bcd507f: 0.0144
+    7c805365aada4dd4b939d6868c101c51: 0.149
+    c93364c52c0e4fb409405920f2e1e106: 0.24
+    727e75d50b12f45448e4aa95ecbe0c03: 5871
+    1dfadf96d0daf074bbb87576c9e37de3: -2354
+    d54a94a7b1b596144a9eef3323a87eff: 3.2
+    1ed0d009f5d11a547a1ab9d3d701acf8: 100
+    e9487f4979a6a9c4ca5f2cabad85ca4d: -4754
+    ab23e9a99040a89408edea095121e122: -4577
+    cbd3db4a8694f284c93c6008db1db950: 1
+    fdf25afb945c810429a5294ece5920f5: 243
+    82af341d6faaa844987dc059d0f9d432: -2001
+    ac81f8ae78deeed43abe33c12adef79a: -8565
+    676b36ce0044fc043aeacffbb9879ba1: 23.5
   m_TransitionOverrides: {}
 --- !u!243 &243075886614344944
 AudioMixerGroupController:

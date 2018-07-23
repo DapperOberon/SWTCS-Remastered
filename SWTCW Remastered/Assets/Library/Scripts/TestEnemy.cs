@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TestEnemy : MonoBehaviour {
 
-	public float health;
+	public float maxHealth;
+	private float health;
 	private AutoTarget autoTarget;
 
 	private void Start()
 	{
+		health = maxHealth;
 		autoTarget = FindObjectOfType<AutoTarget>();
 	}
 
@@ -36,5 +38,10 @@ public class TestEnemy : MonoBehaviour {
 			float damage = collision.gameObject.GetComponent<WeaponDamage>().GetDamage();
 			health -= damage;
 		}
+	}
+
+	public float GetScaledHealth()
+	{
+		return health / maxHealth;
 	}
 }

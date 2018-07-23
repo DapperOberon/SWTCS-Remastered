@@ -926,6 +926,10 @@ MonoBehaviour:
   maxTargetDist: 200
   reticleRecenterSpeed: 10
   reticle: {fileID: 0}
+  enemyHealthSldr: {fileID: 0}
+  enemeySldrColor: {fileID: 0}
+  enemyStartColor: {r: 0.46666664, g: 0.7, b: 0.35, a: 1}
+  enemyEndColor: {r: 0.7, g: 0.40833333, b: 0.35, a: 1}
   reticleSizeWithNoTarget: 80
   reticleColorWithNoTarget: {r: 1, g: 1, b: 1, a: 0.39215687}
   reticleSizeWithTarget: 150

@@ -10,10 +10,27 @@ public class MainMenu : MonoBehaviour {
 	public GameObject startText;
 	public GameObject mainMenu;
 	public GameObject optionsMenu;
+	public Slider[] audioSliders;
 	public GameObject credits;
 	public GameObject loadLevelScreen;
 	public Slider levelProgressSldr;
 	private bool bCreditsRolling;
+	
+
+	private void Start()
+	{
+		audioSliders[0].value = PlayerPrefsManager.Instance.MusicVolume;
+		audioSliders[1].value = PlayerPrefsManager.Instance.SFXVolume;
+	}
+
+	public void ResetAudioSliders()
+	{
+
+		foreach (Slider slider in audioSliders)
+		{
+			slider.value = 0;
+		}
+	}
 
 	private void OnGUI()
 	{
@@ -26,6 +43,8 @@ public class MainMenu : MonoBehaviour {
 		{
 			StopCredits();
 		}
+
+		
 	}
 
 	IEnumerator TransitionToMainMenu()

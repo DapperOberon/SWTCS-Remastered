@@ -8,6 +8,11 @@ public class AutoTarget : MonoBehaviour {
 	public float maxTargetDist = 100f;
 	public float reticleRecenterSpeed = 100f;
 	public RectTransform reticle;
+	public Slider enemyHealthSldr;
+	public Image enemeySldrColor;
+	public Color enemyStartColor;
+	public Color enemyEndColor;
+	private TestEnemy enemy = null;
 	private Image reticleImage;
 	public float reticleSizeWithNoTarget = 80f;
 	public Color reticleColorWithNoTarget;
@@ -27,9 +32,15 @@ public class AutoTarget : MonoBehaviour {
 		cam = Camera.main;
 		reticleImage = reticle.gameObject.GetComponent<Image>();
 
+		enemyHealthSldr.onValueChanged.AddListener(delegate { EnemyHealthCheck(); });
 		InvokeRepeating("UpdateTargets", 0f, targetUpdateWait);
 	}
 	
+	public void EnemyHealthCheck()
+	{
+		enemeySldrColor.color = Color.Lerp(enemyEndColor, enemyStartColor, enemyHealthSldr.value);
+	}
+
 	private void UpdateTargets()
 	{
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Target"))
@@ -47,6 +58,9 @@ public class AutoTarget : MonoBehaviour {
 
 		if(selectedObject != null)
 		{
+			enemyHealthSldr.gameObject.SetActive(true);
+			enemyHealthSldr.value = enemy.GetScaledHealth();
+
 			Rect visualRect = RendererBoundsInScreenSpace(selectedObject.GetComponent<Renderer>());
 			Vector2 newPos = new Vector2((visualRect.xMax - visualRect.xMin) / 2 + visualRect.xMin, (visualRect.yMax - visualRect.yMin) / 2 + visualRect.yMin);
 			reticle.position = Vector2.MoveTowards(reticle.position, newPos, reticleRecenterSpeed);
@@ -55,6 +69,8 @@ public class AutoTarget : MonoBehaviour {
 		}
 		else
 		{
+			enemyHealthSldr.gameObject.SetActive(false);
+
 			float screenX = (Screen.width / 2);
 			float screenY = ((Screen.height / 2.5f) * 1.5f);
 			reticle.transform.position = Vector2.MoveTowards(reticle.position, new Vector2(screenX, screenY), reticleRecenterSpeed);
@@ -130,6 +146,7 @@ public class AutoTarget : MonoBehaviour {
 			{
 				//print("Within target distance");
 				selectedObject = obj;
+				enemy = selectedObject.GetComponent<TestEnemy>();
 			}
 			else
 			{
@@ -148,6 +165,7 @@ public class AutoTarget : MonoBehaviour {
 	public void ClearSelection()
 	{
 		selectedObject = null;
+		enemy = null;
 	}
 
 	static Vector3[] screenSpaceCorners = new Vector3[8];
