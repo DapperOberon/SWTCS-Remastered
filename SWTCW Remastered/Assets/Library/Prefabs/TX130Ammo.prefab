@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 136741118289416720}
   - component: {fileID: 54679880404663976}
   - component: {fileID: 114864818900340372}
+  - component: {fileID: 114583607930448308}
   m_Layer: 9
   m_Name: TX130Ammo
-  m_TagString: Untagged
+  m_TagString: AllyBullets
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,6 +102,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &114583607930448308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1269813316810024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0ef8d1d5c43664aa1fc82fa8cee6ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!114 &114864818900340372
 MonoBehaviour:
   m_ObjectHideFlags: 1

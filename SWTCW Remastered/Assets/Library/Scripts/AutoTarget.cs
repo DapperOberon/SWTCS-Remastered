@@ -14,10 +14,11 @@ public class AutoTarget : MonoBehaviour {
 	public float reticleSizeWithTarget = 150f;
 	public Color reticleColorWithTarget;
 
-	private List<GameObject> targets = new List<GameObject>();
+	public List<GameObject> targets = new List<GameObject>();
+	public float targetUpdateWait;
 	private GameObject closestTarget = null;
 
-	private GameObject selectedObject;
+	public GameObject selectedObject; // TODO make private
 	private Camera cam;
 	private int layerMask;
 
@@ -26,12 +27,20 @@ public class AutoTarget : MonoBehaviour {
 		cam = Camera.main;
 		reticleImage = reticle.gameObject.GetComponent<Image>();
 
-		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Target"))
-		{
-			targets.Add(obj);
-		}
+		InvokeRepeating("UpdateTargets", 0f, targetUpdateWait);
 	}
 	
+	private void UpdateTargets()
+	{
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Target"))
+		{
+			if (!targets.Contains(obj))
+			{
+				targets.Add(obj);
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		SelectObject(FindClosestEnemy());
@@ -113,18 +122,22 @@ public class AutoTarget : MonoBehaviour {
 
 	private void SelectObject(GameObject obj)
 	{
-		Vector3 diff = obj.transform.position - transform.position;
-		float curDistance = diff.sqrMagnitude;
-		if (curDistance < maxTargetDist * maxTargetDist && IsInView(this.gameObject, obj)) // have to muliply by itselft because curDistance is the is a sqrMagnitude
+		if(obj != null) // check to ensure object has not been destroyed
 		{
-			//print("Within target distance");
-			selectedObject = obj;
+			Vector3 diff = obj.transform.position - transform.position;
+			float curDistance = diff.sqrMagnitude;
+			if (curDistance < maxTargetDist * maxTargetDist && IsInView(this.gameObject, obj)) // have to muliply by itselft because curDistance is the is a sqrMagnitude
+			{
+				//print("Within target distance");
+				selectedObject = obj;
+			}
+			else
+			{
+				//print("Either not within range or not visible.");
+				ClearSelection();
+			}
 		}
-		else
-		{
-			//print("Either not within range or not visible.");
-			ClearSelection();
-		}
+		
 	}
 
 	public GameObject GetSelectedObj()
@@ -132,7 +145,7 @@ public class AutoTarget : MonoBehaviour {
 		return selectedObject;
 	}
 
-	private void ClearSelection()
+	public void ClearSelection()
 	{
 		selectedObject = null;
 	}

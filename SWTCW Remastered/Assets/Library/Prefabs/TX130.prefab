@@ -930,6 +930,9 @@ MonoBehaviour:
   reticleColorWithNoTarget: {r: 1, g: 1, b: 1, a: 0.39215687}
   reticleSizeWithTarget: 150
   reticleColorWithTarget: {r: 1, g: 1, b: 1, a: 0.78431374}
+  targets: []
+  targetUpdateWait: 5
+  selectedObject: {fileID: 0}
 --- !u!114 &114192285784429686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -970,7 +973,6 @@ MonoBehaviour:
   gunAudio: {fileID: 82207247987652698}
   laserPitchRand: 0.1
   gunAccuracy: 150
-  damage: 100
   fireRate: 5
   fireVelocity: 8000
   timeToDestroy: 3
