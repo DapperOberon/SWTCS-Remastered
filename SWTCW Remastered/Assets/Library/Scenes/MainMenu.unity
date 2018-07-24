@@ -1741,7 +1741,8 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 58955249}
+      objectReference: {fileID: 114686628959363680, guid: ad0a15e95b7495341bd86f2623c73918,
+        type: 2}
     - target: {fileID: 114986476531278812, guid: e623ca6f258bf22419ed096fc99fe013,
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -3810,7 +3811,8 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 58955249}
+      objectReference: {fileID: 114686628959363680, guid: ad0a15e95b7495341bd86f2623c73918,
+        type: 2}
     - target: {fileID: 1172577604962488, guid: e623ca6f258bf22419ed096fc99fe013, type: 2}
       propertyPath: m_Name
       value: MusicVolSldr
@@ -7246,10 +7248,16 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 58955249}
+      objectReference: {fileID: 114686628959363680, guid: ad0a15e95b7495341bd86f2623c73918,
+        type: 2}
     - target: {fileID: 1172577604962488, guid: e623ca6f258bf22419ed096fc99fe013, type: 2}
       propertyPath: m_Name
       value: SFXVolSldr
+      objectReference: {fileID: 0}
+    - target: {fileID: 114986476531278812, guid: e623ca6f258bf22419ed096fc99fe013,
+        type: 2}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_SFXVolume
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e623ca6f258bf22419ed096fc99fe013, type: 2}
