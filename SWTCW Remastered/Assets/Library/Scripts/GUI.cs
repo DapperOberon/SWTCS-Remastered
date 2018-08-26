@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class GUI : MonoBehaviour {
 
 	public Slider boostBar;
-	private TX130 tank;
+	private TX130Player player;
 
 	// Use this for initialization
 	void Start () {
-		tank = FindObjectOfType<TX130>();
+		player = FindObjectOfType<TX130Player>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		boostBar.value = tank.currBoostTime;
+		boostBar.value = player.getCurrBoostTime();
 	}
 }

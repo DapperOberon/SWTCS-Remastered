@@ -5,27 +5,21 @@ using UnityEngine;
 public class TX130 : MonoBehaviour {
 
 	private Rigidbody rb;
-	private float deadZone = 0.1f;
 
-	public float forwardAcl = 100f;
-	public float backwardAcl = 25f;
-	private float currThrust = 0f;
+	// Thrust variables
+	protected const float forwardAcl = 8000f;
+	protected const float backwardAcl = 4000f;
+	protected const float boostAcl = 8500f;
+	// Max boost time in seconds
+	protected const float maxBoostTime = 10f;
+	protected const float strafeAcl = 4000f;
+	protected const float turnStrength = 4000f;
 
-	public float boostAcl = 2f;
-	public bool bIsBoosting = false; // TODO make private
-	public float maxBoostTime = 10f;
-	[HideInInspector]
-	public float currBoostTime = 0f;
-
-	public float strafeAcl = 50f;
-	private float currStrafe = 0f;
-
-	public float turnStrength = 10f;
-	float currTurn = 0f;
-
+	// Hover variables
 	private int layerMask;
-	public float hoverForce = 9f;
-	public float hoverHeight = 2f;
+	private const float hoverForce = 500f;
+	// Hover height in meters
+	private const float hoverHeight = 2f;
 	public GameObject[] hoverPoints;
 
 	// Use this for initialization
@@ -34,62 +28,6 @@ public class TX130 : MonoBehaviour {
 
 		layerMask = 1 << LayerMask.NameToLayer("Player");
 		layerMask = ~layerMask;
-
-		currBoostTime = maxBoostTime;
-	}
-
-	// Update is called once per frame
-	private void Update() {
-		// Main Thrust
-		float aclAxis = Input.GetAxis("Vertical");
-		if (aclAxis > deadZone)
-		{
-			currThrust = aclAxis * forwardAcl;
-		} else if (aclAxis < deadZone)
-		{
-			currThrust = aclAxis * backwardAcl;
-		} else
-		{
-			currThrust = 0;
-		}
-
-		// Boost Thrust
-		if(!bIsBoosting && currBoostTime < maxBoostTime)
-		{
-			currBoostTime += Time.deltaTime;
-		}
-
-		bool boostInput = Input.GetButton("Boost");
-		if (boostInput)
-		{
-			bIsBoosting = true;
-			currThrust = boostAcl;
-		}
-		else
-		{
-			bIsBoosting = false;
-		}
-
-		// Strafe Thrust
-		float strafeAxis = Input.GetAxis("Strafe");
-		if(Mathf.Abs(strafeAxis) > deadZone)
-		{
-			currStrafe = strafeAxis * strafeAcl;
-
-		} else
-		{
-			currStrafe = 0;
-		}
-
-		// Turning
-		float turnAxis = Input.GetAxis("Horizontal");
-		if(Mathf.Abs(turnAxis) > deadZone)
-		{
-			currTurn = turnAxis;
-		} else
-		{
-			currTurn = 0;
-		}
 	}
 
 	// For Physics
@@ -117,10 +55,13 @@ public class TX130 : MonoBehaviour {
 				}
 			}
 		}
+	}
 
-
+	// Public method for child classes to access
+	public void ApplyForces(float currThrust, bool bIsBoosting, float currBoostTime, float currStrafe, float currTurn)
+	{
 		// Forward
-		if(Mathf.Abs(currThrust) > 0)
+		if (Mathf.Abs(currThrust) > 0)
 		{
 			rb.AddForce(transform.forward * currThrust);
 		}
@@ -129,7 +70,7 @@ public class TX130 : MonoBehaviour {
 		if (bIsBoosting && currBoostTime >= 0f)
 		{
 			rb.AddForce(transform.forward * currThrust);
-			currBoostTime -= Time.deltaTime;
+			//currBoostTime -= Time.deltaTime; // TODO possibly find way to modify child variable
 		}
 
 		// Strafe
@@ -139,9 +80,11 @@ public class TX130 : MonoBehaviour {
 		}
 
 		// Turn
-		if (currTurn > 0){
+		if (currTurn > 0)
+		{
 			rb.AddRelativeTorque(Vector3.up * currTurn * turnStrength);
-		} else if (currTurn < 0)
+		}
+		else if (currTurn < 0)
 		{
 			rb.AddRelativeTorque(Vector3.up * currTurn * turnStrength);
 		}

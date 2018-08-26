@@ -86,9 +86,10 @@ GameObject:
   - component: {fileID: 4905289504284924}
   - component: {fileID: 54087996962071268}
   - component: {fileID: 114192285784429686}
-  - component: {fileID: 114972441545359596}
-  - component: {fileID: 114170735313989858}
   - component: {fileID: 114491227282746804}
+  - component: {fileID: 114819912521175742}
+  - component: {fileID: 114170735313989858}
+  - component: {fileID: 114972441545359596}
   - component: {fileID: 82207247987652698}
   m_Layer: 9
   m_Name: TX130
@@ -948,16 +949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07059e54eef2a3b49a6e237cef759d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardAcl: 8000
-  backwardAcl: 4000
-  boostAcl: 8500
-  bIsBoosting: 0
-  maxBoostTime: 2
-  currBoostTime: 2.00611
-  strafeAcl: 4000
-  turnStrength: 4000
-  hoverForce: 500
-  hoverHeight: 2
   hoverPoints:
   - {fileID: 1376179595024058}
   - {fileID: 1991501912579982}
@@ -1083,6 +1074,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Cinemachine.CinemachineBrain+VcamEvent, Cinemachine, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114819912521175742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1368778906031318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba5c34e02a7d044589a555eadc409e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverPoints: []
 --- !u!114 &114972441545359596
 MonoBehaviour:
   m_ObjectHideFlags: 1
