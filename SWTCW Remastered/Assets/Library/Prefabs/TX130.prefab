@@ -86,8 +86,8 @@ GameObject:
   - component: {fileID: 4905289504284924}
   - component: {fileID: 54087996962071268}
   - component: {fileID: 114192285784429686}
-  - component: {fileID: 114491227282746804}
   - component: {fileID: 114819912521175742}
+  - component: {fileID: 114491227282746804}
   - component: {fileID: 114170735313989858}
   - component: {fileID: 114972441545359596}
   - component: {fileID: 82207247987652698}
@@ -949,11 +949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07059e54eef2a3b49a6e237cef759d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverPoints:
-  - {fileID: 1376179595024058}
-  - {fileID: 1991501912579982}
-  - {fileID: 1181687765298164}
-  - {fileID: 1879435992654346}
 --- !u!114 &114491227282746804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1085,7 +1080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba5c34e02a7d044589a555eadc409e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverPoints: []
 --- !u!114 &114972441545359596
 MonoBehaviour:
   m_ObjectHideFlags: 1

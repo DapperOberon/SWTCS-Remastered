@@ -20,7 +20,8 @@ public class TX130 : MonoBehaviour {
 	private const float hoverForce = 500f;
 	// Hover height in meters
 	private const float hoverHeight = 2f;
-	public GameObject[] hoverPoints;
+	private Transform hoverPointsParent;
+	private Transform[] hoverPoints;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +29,10 @@ public class TX130 : MonoBehaviour {
 
 		layerMask = 1 << LayerMask.NameToLayer("Player");
 		layerMask = ~layerMask;
+
+		// Set hoverpoints
+		hoverPointsParent = transform.Find("HoverPoints");
+		hoverPoints = hoverPointsParent.GetComponentsInChildren<Transform>();
 	}
 
 	// For Physics
@@ -37,21 +42,21 @@ public class TX130 : MonoBehaviour {
 		RaycastHit hit;
 		for(int i = 0; i < hoverPoints.Length; i++)
 		{
-			GameObject hoverPoint = hoverPoints[i];
-			if(Physics.Raycast(hoverPoint.transform.position,
+			Transform hoverPoint = hoverPoints[i];
+			if(Physics.Raycast(hoverPoint.position,
 								-Vector3.up, out hit,
 								hoverHeight,
 								layerMask))
 			{
-				rb.AddForceAtPosition(Vector3.up * hoverForce * (1f - (hit.distance / hoverHeight)), hoverPoint.transform.position);
+				rb.AddForceAtPosition(Vector3.up * hoverForce * (1f - (hit.distance / hoverHeight)), hoverPoint.position);
 			} else
 			{
-				if(transform.position.y > hoverPoint.transform.position.y)
+				if(transform.position.y > hoverPoint.position.y)
 				{
-					rb.AddForceAtPosition(hoverPoint.transform.up * hoverForce, hoverPoint.transform.position);
+					rb.AddForceAtPosition(hoverPoint.up * hoverForce, hoverPoint.position);
 				} else
 				{
-					rb.AddForceAtPosition(hoverPoint.transform.up * -hoverForce, hoverPoint.transform.position);
+					rb.AddForceAtPosition(hoverPoint.up * -hoverForce, hoverPoint.position);
 				}
 			}
 		}
