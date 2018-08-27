@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TX130 : MonoBehaviour {
 
-	private Rigidbody rb;
+	[HideInInspector]
+	public Rigidbody rb;
 
 	// Thrust variables
 	protected const float forwardAcl = 8000f;
