@@ -863,6 +863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07059e54eef2a3b49a6e237cef759d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  tankStats: {fileID: 11400000, guid: 38a17fccc2e281648beb1bdcd98c7715, type: 2}
 --- !u!114 &114491227282746804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -994,6 +996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba5c34e02a7d044589a555eadc409e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  tankStats: {fileID: 0}
 --- !u!114 &114972441545359596
 MonoBehaviour:
   m_ObjectHideFlags: 1

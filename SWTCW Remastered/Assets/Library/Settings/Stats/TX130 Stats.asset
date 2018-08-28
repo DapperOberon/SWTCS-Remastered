@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b0836ead65b1c43a568b770e6a17c6, type: 3}
+  m_Name: TX130 Stats
+  m_EditorClassIdentifier: 
+  forwardAcl: 8000
+  backwardAcl: 4000
+  boostAcl: 8500
+  maxBoostTime: 10
+  strafeAcl: 4000
+  turnStrength: 4000
+  hoverForce: 500
+  hoverHeight: 2

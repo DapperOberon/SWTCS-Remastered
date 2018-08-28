@@ -15,11 +15,11 @@ public class TX130Player : TX130 {
 	private TX130 tankRef;
 
 	// Use this for initialization
-	void Start () {
-		currBoostTime = TX130.maxBoostTime;
-		
+	void Start () {		
 		// Get tank reference
 		tankRef = GetComponent<TX130>();
+
+		currBoostTime = tankRef.tankStats.maxBoostTime;
 	}
 
 	// Update is called once per frame
@@ -30,7 +30,7 @@ public class TX130Player : TX130 {
 	private void FixedUpdate()
 	{
 		// Using tank ref apply forces
-		tankRef.ApplyForces(currThrust, bIsBoosting, currBoostTime, currStrafe, currTurn);
+		tankRef.ApplyForces(currThrust, bIsBoosting, currBoostTime, currStrafe, currTurn * Vector3.up);
 	}
 
 	public float getCurrBoostTime()
@@ -44,11 +44,11 @@ public class TX130Player : TX130 {
 		float aclAxis = Input.GetAxis("Vertical");
 		if (aclAxis > deadZone)
 		{
-			currThrust = aclAxis * TX130.forwardAcl;
+			currThrust = aclAxis * tankRef.tankStats.forwardAcl;
 		}
 		else if (aclAxis < deadZone)
 		{
-			currThrust = aclAxis * TX130.backwardAcl;
+			currThrust = aclAxis * tankRef.tankStats.backwardAcl;
 		}
 		else
 		{
@@ -56,7 +56,7 @@ public class TX130Player : TX130 {
 		}
 
 		// Boost Thrust
-		if (!bIsBoosting && currBoostTime < TX130.maxBoostTime)
+		if (!bIsBoosting && currBoostTime < tankRef.tankStats.maxBoostTime)
 		{
 			currBoostTime += Time.deltaTime;
 		} else if (bIsBoosting && currBoostTime >= 0f)
@@ -68,7 +68,7 @@ public class TX130Player : TX130 {
 		if (boostInput)
 		{
 			bIsBoosting = true;
-			currThrust = TX130.boostAcl;
+			currThrust = tankRef.tankStats.boostAcl;
 		}
 		else
 		{
@@ -79,7 +79,7 @@ public class TX130Player : TX130 {
 		float strafeAxis = Input.GetAxis("Strafe");
 		if (Mathf.Abs(strafeAxis) > deadZone)
 		{
-			currStrafe = strafeAxis * TX130.strafeAcl;
+			currStrafe = strafeAxis * tankRef.tankStats.strafeAcl;
 
 		}
 		else

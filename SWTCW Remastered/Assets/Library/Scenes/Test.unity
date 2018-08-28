@@ -345,7 +345,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4905289504284924, guid: e1e6d151547eae34f9a7d254412bd2b7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.005645978
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4905289504284924, guid: e1e6d151547eae34f9a7d254412bd2b7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -370,20 +370,6 @@ Prefab:
     - target: {fileID: 4905289504284924, guid: e1e6d151547eae34f9a7d254412bd2b7, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114608583600838296, guid: e1e6d151547eae34f9a7d254412bd2b7,
-        type: 2}
-      propertyPath: radius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114608583600838296, guid: e1e6d151547eae34f9a7d254412bd2b7,
-        type: 2}
-      propertyPath: deadZone
-      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1e6d151547eae34f9a7d254412bd2b7, type: 2}
@@ -507,12 +493,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114199539172254692, guid: de64331325fde6b499e09b4ecf16b344,
         type: 2}
       propertyPath: maxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
@@ -562,7 +552,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114199539172254692, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
@@ -613,7 +607,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114199539172254692, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
@@ -1378,7 +1376,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1617253717745502, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114199539172254692, guid: de64331325fde6b499e09b4ecf16b344, type: 2}
@@ -1428,11 +1430,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114972441545359596, guid: 312c0489b16536540a4abcf6f327377f,
+    - target: {fileID: 114491227282746804, guid: 312c0489b16536540a4abcf6f327377f,
         type: 2}
-      propertyPath: boostBar
+      propertyPath: ammoParent
       value: 
-      objectReference: {fileID: 1796671497}
+      objectReference: {fileID: 1029982172}
     - target: {fileID: 114170735313989858, guid: 312c0489b16536540a4abcf6f327377f,
         type: 2}
       propertyPath: reticle
@@ -1448,11 +1450,11 @@ Prefab:
       propertyPath: enemeySldrColor
       value: 
       objectReference: {fileID: 1717296540}
-    - target: {fileID: 114491227282746804, guid: 312c0489b16536540a4abcf6f327377f,
+    - target: {fileID: 114972441545359596, guid: 312c0489b16536540a4abcf6f327377f,
         type: 2}
-      propertyPath: ammoParent
+      propertyPath: boostBar
       value: 
-      objectReference: {fileID: 1029982172}
+      objectReference: {fileID: 1796671497}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 312c0489b16536540a4abcf6f327377f, type: 2}
   m_IsPrefabAsset: 0

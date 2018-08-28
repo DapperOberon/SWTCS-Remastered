@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(TX130))]
 public class TX130AI : TX130
@@ -13,6 +14,9 @@ public class TX130AI : TX130
 	private float currStrafe = 0f;
 	private float currTurn = 0f;
 
+	float angleDiff;
+	Vector3 crossProd;
+
 	private TX130 tankRef;
 	private GameObject playerRef;
 	public float radius = 10f;
@@ -20,7 +24,7 @@ public class TX130AI : TX130
 	// Use this for initialization
 	void Start()
 	{
-		currBoostTime = TX130.maxBoostTime;
+		currBoostTime = base.tankStats.maxBoostTime;
 
 		// Get tank reference
 		tankRef = GetComponent<TX130>();
@@ -38,7 +42,7 @@ public class TX130AI : TX130
 	private void FixedUpdate()
 	{
 		// Using tank ref apply forces
-		tankRef.ApplyForces(currThrust, bIsBoosting, currBoostTime, currStrafe, currTurn);
+		tankRef.ApplyForces(currThrust, bIsBoosting, currBoostTime, currStrafe, currTurn * crossProd * angleDiff);
 	}
 
 	public float getCurrBoostTime()
@@ -48,27 +52,28 @@ public class TX130AI : TX130
 
 	private void GetMoveCommand()
 	{
-		float distance = Vector3.Distance(transform.position, playerRef.transform.position);
+		//float distance = Vector3.Distance(transform.position, playerRef.transform.position);
+		//var direction = transform.position - playerRef.transform.position;
+		//direction.
 
-		// Main Thrust
-		if (distance > radius)
-		{
-			print("Moving to player");
-			currThrust = 1 * TX130.forwardAcl;
-		}
-		else
-		{
-			print("Next to player");
-			if(tankRef.rb.velocity.magnitude > deadZone)
-			{
-				print("AI stopping...");
-				currThrust = -1 * TX130.backwardAcl;
-			}
-			else
-			{
-				print("AI stopped.");
-			}
-		}
+		//// Main Thrust
+		//if (distance > radius)
+		//{
+		//	print("Moving foward to player");
+		//	currThrust = 1 * TX130.forwardAcl;
+		//}
+		//else
+		//{
+		//	if (tankRef.rb.velocity.magnitude > deadZone)
+		//	{
+		//		print("AI stopping...");
+		//		currThrust = -1 * TX130.backwardAcl;
+		//	}
+		//	else
+		//	{
+		//		print("AI stopped.");
+		//	}
+		//}
 
 		//// Main Thrust
 		//float aclAxis = Input.GetAxis("Vertical");
@@ -118,7 +123,7 @@ public class TX130AI : TX130
 		//	currStrafe = 0;
 		//}
 
-		// Turning
+		////Turning
 		//float turnAxis = Input.GetAxis("Horizontal");
 		//if (Mathf.Abs(turnAxis) > deadZone)
 		//{
@@ -128,5 +133,21 @@ public class TX130AI : TX130
 		//{
 		//	currTurn = 0;
 		//}
+
+		// d.toliaferro
+		// Turning
+		Vector3 targetDelta = playerRef.transform.position - transform.position;
+
+		// get the angle between transofmr.forward and target delta
+		angleDiff = Vector3.Angle(transform.forward, targetDelta);
+
+		// get its cross product, which is the axis of rotation to get from one vector to the other
+		crossProd = Vector3.Cross(transform.forward, targetDelta);
+
+		// apply torque along that axis according to the magnitude of the angle.
+		if(Mathf.Abs(angleDiff) > deadZone)
+		{
+			currTurn = base.tankStats.turnStrength;
+		}
 	}
 }
