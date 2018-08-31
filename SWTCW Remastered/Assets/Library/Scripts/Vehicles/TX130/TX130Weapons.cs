@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AutoTarget))]
 public class TX130Weapons : MonoBehaviour {
 
 	public AudioSource gunAudio;
-	public float laserPitchRand;
-	public float gunAccuracy;
-	public float fireRate;
-	public float fireVelocity;
-	public float timeToDestroy;
+	public float laserPitchRand = .1f;
+	public float gunAccuracy = 150f;
+	public float fireRate = 5f;
+	public float fireVelocity = 8000f;
+	public float timeToDestroy = 3f;
 	public float gunRecenterSpeed = 1f;
+
 	public GameObject ammo;
-	public Transform ammoParent;
+	private Transform ammoParent;
 	private Rigidbody ammorb;
+
 	public Transform[] guns;
 	public Transform[] gunPoints;
 	public Transform aimPoint;
@@ -24,6 +27,15 @@ public class TX130Weapons : MonoBehaviour {
 	private void Start()
 	{
 		targeting = GetComponent<AutoTarget>();
+		try
+		{
+			ammoParent = GameObject.Find("BulletCollector").transform;
+		}
+		catch
+		{
+			Debug.LogError(this + " requires that an empty object named 'BulletCollector' be placed in the scene. Creating object for you.");
+			ammoParent = new GameObject("BulletCollector").transform;
+		}
 		
 	}
 

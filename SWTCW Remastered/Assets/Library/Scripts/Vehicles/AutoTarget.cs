@@ -23,7 +23,7 @@ public class AutoTarget : MonoBehaviour {
 	public float targetUpdateWait;
 	private GameObject closestTarget = null;
 
-	public GameObject selectedObject; // TODO make private
+	private GameObject selectedObject;
 	private Camera cam;
 	private int layerMask;
 
@@ -79,7 +79,7 @@ public class AutoTarget : MonoBehaviour {
 		}
 	}
 
-	public GameObject FindClosestEnemy() // TODO return closest target within FOV
+	public GameObject FindClosestEnemy()
 	{
 		float distance = Mathf.Infinity;
 		Vector3 position = transform.position;

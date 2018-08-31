@@ -6,12 +6,12 @@ public class TestEnemy : MonoBehaviour {
 
 	public float maxHealth;
 	private float health;
-	private AutoTarget autoTarget;
+	private AutoTarget[] autoTargets;
 
 	private void Start()
 	{
 		health = maxHealth;
-		autoTarget = FindObjectOfType<AutoTarget>();
+		autoTargets = FindObjectsOfType<AutoTarget>();
 	}
 
 	private void Update()
@@ -24,10 +24,13 @@ public class TestEnemy : MonoBehaviour {
 
 	private void OnDestroy()
 	{
-		if (autoTarget.targets.Contains(this.gameObject))
+		foreach(AutoTarget autoTarget in autoTargets)
 		{
-			autoTarget.ClearSelection();
-			autoTarget.targets.Remove(this.gameObject);
+			if (autoTarget.targets.Contains(this.gameObject))
+			{
+				autoTarget.ClearSelection();
+				autoTarget.targets.Remove(this.gameObject);
+			}
 		}
 	}
 
