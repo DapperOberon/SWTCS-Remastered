@@ -5,42 +5,24 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TX130 : MonoBehaviour {
 
-	private Rigidbody rb;
-
 	public TX130Stats tankStats;
-	// TODO remove variables and put in tankStats
-	[Header("Thrust Settings")]
-	public float thrustForce = 6000f;
-	public float strafeForce = 20f;
-	public float rudderForce = 2000f;
-	public float slowingVelFactor = .99f;
-	public float angleOfRoll = 5f;
 
-	[Header("HoverSettings")]
-	public float hoverHeight = 2f;
-	public float maxGroundDist = 5f;
-	public float hoverForce = 300f;
+	[Header("Hover Settings")]
 	public LayerMask whatIsGround;
 	public PIDController hoverPID;
 	public Transform[] hoverPoints;
 
-	[Header("Physics Settings")]
+	[Header("Cosmetic Settings")]
 	public Transform shipBody;
-	public float hoverGravity = 20f;
-	public float fallGravity = 80f;
 
-	private float speed;
-	private float drag;
+	private Rigidbody rb;
+
 
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 	}
 
-	private void FixedUpdate()
-	{
-		speed = Vector3.Dot(rb.velocity, transform.forward);
-	}
 	public void CalculateHover(float currStrafe, float currRudder)
 	{
 		RaycastHit hitInfo;
@@ -50,21 +32,21 @@ public class TX130 : MonoBehaviour {
 			Ray ray = new Ray(hoverPoint.position, -Vector3.up);
 			if (Physics.Raycast(ray,
 					   out hitInfo,
-					 maxGroundDist,
+					 tankStats.maxGroundDist,
 					 whatIsGround))
 			{
 				print("Grounded...");
 				float height = hitInfo.distance;
-				float forcePercent = hoverPID.Seek(hoverHeight, height);
-				Vector3 force = Vector3.up * hoverForce * forcePercent;
-				Vector3 gravity = -Vector3.up * hoverGravity * height;
+				float forcePercent = hoverPID.Seek(tankStats.hoverHeight, height);
+				Vector3 force = Vector3.up * tankStats.hoverForce * forcePercent;
+				Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
 				rb.AddForceAtPosition(force, hoverPoint.position);
 				rb.AddForceAtPosition(gravity, hoverPoint.position);
 			}
 			else
 			{
 				print("Not grounded...");
-				Vector3 gravity = -Vector3.up * fallGravity;
+				Vector3 gravity = -Vector3.up * tankStats.fallGravity;
 				rb.AddForceAtPosition(gravity, hoverPoint.position);
 			}
 		}
@@ -84,17 +66,17 @@ public class TX130 : MonoBehaviour {
 		// If not strafeing
 		if (currStrafe == 0)
 		{
-			angle = angleOfRoll * -currRudder;
+			angle = tankStats.angleOfRoll * -currRudder;
 		}
 		// If not turning
 		else if (currRudder == 0)
 		{
-			angle = angleOfRoll * -currStrafe;
+			angle = tankStats.angleOfRoll * -currStrafe;
 		}
 		// If both
 		else
 		{
-			angle = angleOfRoll * -currStrafe; // only strafe because strafe affects body roll more than rudder torque
+			angle = tankStats.angleOfRoll * -currStrafe; // only strafe because strafe affects body roll more than rudder torque
 		}
 
 		//float angle = angleOfRoll * -input.currRudder;
@@ -105,11 +87,11 @@ public class TX130 : MonoBehaviour {
 		shipBody.rotation = Quaternion.Lerp(shipBody.rotation, bodyRotation, Time.deltaTime * 10f);
 	}
 
-	public void CalculatePropulsion(float currThrust, float currStrafe, float currRudder)
+	public void CalculatePropulsion(float currThrust, float currStrafe, float currRudder, bool bIsBoosting)
 	{
 		// Torque
 		// Calculate the yaw torque based on rudder and current angular velocity
-		float rotationTorque = rudderForce * currRudder - rb.angularVelocity.y;
+		float rotationTorque = tankStats.turnStrength * currRudder - rb.angularVelocity.y;
 		// Apply torque
 		rb.AddRelativeTorque(0, rotationTorque, 0);
 
@@ -118,12 +100,20 @@ public class TX130 : MonoBehaviour {
 		// If not propelling, slow ship
 		if (currThrust <= 0f || currStrafe <= 0f)
 		{
-			rb.velocity *= slowingVelFactor;
+			rb.velocity *= tankStats.slowingVelFactor;
 		}
 
-		float propulsion = thrustForce * currThrust;
+		float propulsion;
+
+		propulsion = tankStats.forwardForce * currThrust;
+
+		if (bIsBoosting)
+		{
+			propulsion *= tankStats.boostMultiplier;
+		}
+
 		rb.AddForce(transform.forward * propulsion);
-		float sidePropulsion = strafeForce * currStrafe;
+		float sidePropulsion = tankStats.strafeForce * currStrafe;
 		rb.AddForce(transform.right * sidePropulsion);
 	}
 
@@ -137,86 +127,4 @@ public class TX130 : MonoBehaviour {
 			Gizmos.DrawRay(ray);
 		}
 	}
-
-	
-	//// Hover variables
-	//private int layerMask;
-	//private Transform hoverPointsParent;
-	//private Transform[] hoverPoints;
-
-	//// Use this for initialization
-	//void Start () {
-	//	rb = GetComponent<Rigidbody>();
-
-	//	layerMask = 1 << LayerMask.NameToLayer("Player");
-	//	layerMask = ~layerMask;
-
-	//	// Set hoverpoints
-	//	hoverPointsParent = transform.Find("HoverPoints");
-	//	hoverPoints = hoverPointsParent.GetComponentsInChildren<Transform>();
-	//}
-
-	//// For Physics
-	//private void FixedUpdate()
-	//{
-	//	// Hover
-	//	RaycastHit hit;
-	//	for (int i = 0; i < hoverPoints.Length; i++)
-	//	{
-	//		Transform hoverPoint = hoverPoints[i];
-	//		if (Physics.Raycast(hoverPoint.position,
-	//							-Vector3.up, out hit,
-	//							tankStats.hoverHeight, 
-	//							layerMask))
-	//		{
-	//			print("Ground beneath");
-	//			rb.AddForceAtPosition(Vector3.up * tankStats.hoverForce * (1f - (hit.distance / tankStats.hoverHeight)), hoverPoint.position);
-	//		}
-	//		else
-	//		{
-	//			print("No ground");
-	//			if (transform.position.y > hoverPoint.position.y)
-	//			{
-	//				rb.AddForceAtPosition(hoverPoint.up * tankStats.hoverForce, hoverPoint.position);
-	//			}
-	//			else
-	//			{
-	//				rb.AddForceAtPosition(hoverPoint.up * -tankStats.hoverForce, hoverPoint.position);
-	//			}
-	//		}
-	//	}
-	//}
-
-	//// Public method for child classes to access
-	//public void ApplyForces(float currThrust, bool bIsBoosting, float currBoostTime, float currStrafe, Vector3 currTurn)
-	//{
-	//	// Forward
-	//	if (Mathf.Abs(currThrust) > 0)
-	//	{
-	//		rb.AddForce(transform.forward * currThrust);
-	//	}
-
-	//	// Boost
-	//	if (bIsBoosting && currBoostTime >= 0f)
-	//	{
-	//		//rb.AddForce(transform.forward * currThrust);
-	//		//currBoostTime -= Time.deltaTime; // TODO possibly find way to modify child variable
-	//	}
-
-	//	// Strafe
-	//	if (Mathf.Abs(currStrafe) > 0)
-	//	{
-	//		rb.AddForce(transform.right * currStrafe);
-	//	}
-
-	//	// Turn
-	//	if (currTurn.y > 0)
-	//	{
-	//		rb.AddRelativeTorque(currTurn * tankStats.turnStrength);
-	//	}
-	//	else if (currTurn.y < 0)
-	//	{
-	//		rb.AddRelativeTorque(currTurn * tankStats.turnStrength);
-	//	}
-	//}
 }

@@ -839,9 +839,11 @@ MonoBehaviour:
   verticalAxisName: Vertical
   horizontalAxisName: Horizontal
   strafeAxisName: Strafe
+  boostButtonName: Boost
   currThruster: 0
   currRudder: 0
   currStrafe: 0
+  bIsBoosting: 0
 --- !u!114 &114544349704786798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -853,15 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07059e54eef2a3b49a6e237cef759d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankStats: {fileID: 0}
-  thrustForce: 6000
-  strafeForce: 2000
-  rudderForce: 2000
-  slowingVelFactor: 0.99
-  angleOfRoll: 5
-  hoverHeight: 5
-  maxGroundDist: 10
-  hoverForce: 2000
+  tankStats: {fileID: 11400000, guid: 38a17fccc2e281648beb1bdcd98c7715, type: 2}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1
@@ -877,8 +871,6 @@ MonoBehaviour:
   - {fileID: 4290274577231338}
   - {fileID: 4337962171063654}
   shipBody: {fileID: 4260071388757964}
-  hoverGravity: 98
-  fallGravity: 294
 --- !u!114 &114622957382688126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -983,3 +975,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba5c34e02a7d044589a555eadc409e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankStats: {fileID: 11400000, guid: 38a17fccc2e281648beb1bdcd98c7715, type: 2}

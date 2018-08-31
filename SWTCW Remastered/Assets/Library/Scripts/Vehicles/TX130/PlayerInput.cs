@@ -8,18 +8,22 @@ public class PlayerInput : MonoBehaviour {
 	public string verticalAxisName = "Vertical";
 	// Rudder axis name
 	public string horizontalAxisName = "Horizontal";
-	// Brake button
+	// Strafe axis name
 	public string strafeAxisName = "Strafe";
+	// Boost button name
+	public string boostButtonName = "Boost";
 
 	// Current force values
 	[HideInInspector] public float currThruster;
 	[HideInInspector] public float currRudder;
 	[HideInInspector] public float currStrafe;
+	[HideInInspector] public bool bIsBoosting;
 
 	// Update is called once per frame
 	void Update () {
 		currThruster = Input.GetAxis(verticalAxisName);
 		currRudder = Input.GetAxis(horizontalAxisName);
 		currStrafe = Input.GetAxis(strafeAxisName);
+		bIsBoosting = Input.GetButton(boostButtonName);
 	}
 }

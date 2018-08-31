@@ -11,11 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b0836ead65b1c43a568b770e6a17c6, type: 3}
   m_Name: TX130 Stats
   m_EditorClassIdentifier: 
-  forwardAcl: 8000
-  backwardAcl: 4000
-  boostAcl: 8500
+  forwardForce: 6000
+  backwardForce: 4000
+  boostMultiplier: 2
   maxBoostTime: 10
-  strafeAcl: 4000
-  turnStrength: 4000
-  hoverForce: 500
-  hoverHeight: 2
+  strafeForce: 3000
+  turnStrength: 2000
+  slowingVelFactor: 0.99
+  hoverForce: 2000
+  hoverHeight: 5
+  maxGroundDist: 10
+  hoverGravity: 98
+  fallGravity: 294
+  angleOfRoll: 5
