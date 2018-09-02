@@ -18,9 +18,9 @@ MonoBehaviour:
   strafeForce: 3000
   turnStrength: 2000
   slowingVelFactor: 0.99
-  hoverForce: 2000
-  hoverHeight: 5
-  maxGroundDist: 10
+  hoverForce: 4000
+  hoverHeight: 3
+  maxGroundDist: 5
   hoverGravity: 98
   fallGravity: 294
   angleOfRoll: 5

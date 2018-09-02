@@ -37,8 +37,11 @@ public class TX130 : MonoBehaviour {
 			{
 				print("Grounded...");
 				float height = hitInfo.distance;
+				Vector3 normal = hitInfo.normal.normalized;
 				float forcePercent = hoverPID.Seek(tankStats.hoverHeight, height);
-				Vector3 force = Vector3.up * tankStats.hoverForce * forcePercent;
+				//Vector3 force = Vector3.up * tankStats.hoverForce * forcePercent;
+				//Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
+				Vector3 force = normal * tankStats.hoverForce * forcePercent;
 				Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
 				rb.AddForceAtPosition(force, hoverPoint.position);
 				rb.AddForceAtPosition(gravity, hoverPoint.position);
