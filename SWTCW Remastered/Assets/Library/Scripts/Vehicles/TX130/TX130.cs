@@ -10,32 +10,85 @@ public class TX130 : MonoBehaviour {
 	[Header("Hover Settings")]
 	public LayerMask whatIsGround;
 	public PIDController hoverPID;
+	public float hoverLookahead;
+	public float hoverLookaheadMax;
+	public float lookaheadLerpSpeed;
+	public float lookaheadSpeed;
+	public float maxLookaheadSpeed;
+	public Transform hoverParent;
 	public Transform[] hoverPoints;
+	private bool[] hoverPointsGrounded = new bool[4];
 
 	[Header("Cosmetic Settings")]
 	public Transform shipBody;
 
 	private Rigidbody rb;
-
+	private Vector3 hoverParentVector;
+	private Vector3 hoverParentVectorMax;
 
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+		hoverParentVector = new Vector3(0, 0, hoverLookahead);
+		hoverParentVectorMax = new Vector3(0, 0, hoverLookaheadMax);
+	}
+
+	private void Update()
+	{
+		for(int i = 0; i < hoverPointsGrounded.Length; i++)
+		{
+
+		}
+
+		if (bIsGrounded(hoverPointsGrounded))
+		{
+			if (rb.velocity.magnitude >= lookaheadSpeed && rb.velocity.magnitude <= maxLookaheadSpeed)
+			{
+				//hoverParent.localPosition = hoverParentVector;
+				hoverParent.localPosition = Vector3.Lerp(hoverParent.localPosition, hoverParentVector, lookaheadLerpSpeed);
+			}
+			else if (rb.velocity.magnitude >= maxLookaheadSpeed)
+			{
+				hoverParent.localPosition = Vector3.Lerp(hoverParent.localPosition, hoverParentVectorMax, lookaheadLerpSpeed);
+			}
+			else
+			{
+				hoverParent.localPosition = Vector3.zero;
+			}
+		}
+		else
+		{
+			hoverParent.localPosition = Vector3.zero;
+		}
+		
+	}
+
+	bool bIsGrounded(bool[] hoverPointsGrounded)
+	{
+		for (int i = 0; i < hoverPointsGrounded.Length; i++)
+		{
+			if (hoverPointsGrounded[i])
+			{
+				return hoverPointsGrounded[i];
+			}
+		}
+		return false;
 	}
 
 	public void CalculateHover(float currStrafe, float currRudder)
 	{
 		RaycastHit hitInfo;
 
-		foreach (Transform hoverPoint in hoverPoints)
+		for(int i = 0; i < hoverPoints.Length; i++)
 		{
-			Ray ray = new Ray(hoverPoint.position, -Vector3.up);
+			Ray ray = new Ray(hoverPoints[i].position, -Vector3.up);
 			if (Physics.Raycast(ray,
-					   out hitInfo,
-					 tankStats.maxGroundDist,
-					 whatIsGround))
+					    out hitInfo,
+		    tankStats.maxGroundDist,
+					  whatIsGround))
 			{
 				print("Grounded...");
+				hoverPointsGrounded[i] = true;
 				float height = hitInfo.distance;
 				Vector3 normal = hitInfo.normal.normalized;
 				float forcePercent = hoverPID.Seek(tankStats.hoverHeight, height);
@@ -43,16 +96,43 @@ public class TX130 : MonoBehaviour {
 				//Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
 				Vector3 force = normal * tankStats.hoverForce * forcePercent;
 				Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
-				rb.AddForceAtPosition(force, hoverPoint.position);
-				rb.AddForceAtPosition(gravity, hoverPoint.position);
+				rb.AddForceAtPosition(force, hoverPoints[i].position);
+				rb.AddForceAtPosition(gravity, hoverPoints[i].position);
 			}
 			else
 			{
 				print("Not grounded...");
+				hoverPointsGrounded[i] = false;
 				Vector3 gravity = -Vector3.up * tankStats.fallGravity;
-				rb.AddForceAtPosition(gravity, hoverPoint.position);
+				rb.AddForceAtPosition(gravity, hoverPoints[i].position);
 			}
 		}
+		//foreach (Transform hoverPoint in hoverPoints)
+		//{
+		//	Ray ray = new Ray(hoverPoint.position, -Vector3.up);
+		//	if (Physics.Raycast(ray,
+		//			   out hitInfo,
+		//			 tankStats.maxGroundDist,
+		//			 whatIsGround))
+		//	{
+		//		print("Grounded...");
+		//		float height = hitInfo.distance;
+		//		Vector3 normal = hitInfo.normal.normalized;
+		//		float forcePercent = hoverPID.Seek(tankStats.hoverHeight, height);
+		//		//Vector3 force = Vector3.up * tankStats.hoverForce * forcePercent;
+		//		//Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
+		//		Vector3 force = normal * tankStats.hoverForce * forcePercent;
+		//		Vector3 gravity = -Vector3.up * tankStats.hoverGravity * height;
+		//		rb.AddForceAtPosition(force, hoverPoint.position);
+		//		rb.AddForceAtPosition(gravity, hoverPoint.position);
+		//	}
+		//	else
+		//	{
+		//		print("Not grounded...");
+		//		Vector3 gravity = -Vector3.up * tankStats.fallGravity;
+		//		rb.AddForceAtPosition(gravity, hoverPoint.position);
+		//	}
+		//}
 
 		// Purely cosmetic
 

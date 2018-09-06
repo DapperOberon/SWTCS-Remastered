@@ -35,8 +35,8 @@ MonoBehaviour:
     min: 0
     max: 360
   exposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.1
   multiplier:
     m_OverrideState: 0
     m_Value: 1
